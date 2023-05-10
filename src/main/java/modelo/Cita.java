@@ -7,9 +7,10 @@ public class Cita implements Serializable{
     private static final long serialVersionUID = 1L;
     private int Codigo;
     private Date Fecha;
-    private String Horario;
+    private Time Horario;
     private int Cod_Cliente;
     private int Cod_Tratamiento;
+    private int Cod_Promocion;
 
     public Cita(){
     }
@@ -20,7 +21,7 @@ public class Cita implements Serializable{
     }
 
     //Insertar
-    public Cita(int Cod_Cliente,Date Fecha, String Horario, int Cod_Tratamiento){
+    public Cita(int Cod_Cliente, Date Fecha, Time Horario, int Cod_Tratamiento, int Cod_Promocion){
         this.Fecha = Fecha;
         this.Horario = Horario;
         this.Cod_Cliente = Cod_Cliente;
@@ -28,7 +29,7 @@ public class Cita implements Serializable{
     }
 
     //Modificar
-    public Cita(int Codigo, Date Fecha, String Horario, int Cod_Cliente, int Cod_Tratamiento){
+    public Cita(int Codigo, Date Fecha, Time Horario, int Cod_Cliente, int Cod_Tratamiento, int Cod_Promocion){
         this.Codigo = Codigo;
         this.Fecha = Fecha;
         this.Horario = Horario;
@@ -52,11 +53,11 @@ public class Cita implements Serializable{
         this.Fecha = Fecha;
     }
 
-    public String getHorario() {
+    public Time getHorario() {
         return Horario;
     }
 
-    public void setHorario(String Horario) {
+    public void setHorario(Time Horario) {
         this.Horario = Horario;
     }
 
@@ -74,5 +75,12 @@ public class Cita implements Serializable{
 
     public void setCod_Tratamiento(int Cod_Tratamiento) {
         this.Cod_Tratamiento = Cod_Tratamiento;
+    }
+
+    public int getCod_Promocion() {
+        return Cod_Tratamiento;
+    }
+
+    public void setCod_Promocion(int Cod_Promocion) {
     }
 }

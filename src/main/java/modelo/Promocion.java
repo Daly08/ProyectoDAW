@@ -1,31 +1,35 @@
 package modelo;
+
 import java.io.Serializable;
 
-public class Tratamiento implements Serializable{
+public class Promocion implements Serializable{
     private static final long serialVersionUID = 1L;
     private int Codigo;
     private String Nombre;
     private Float Precio;
+    private Boolean Vigencia;
 
-    public Tratamiento(){
+    public Promocion(){
     }
 
     //Borrar
-    public Tratamiento(int Codigo){
+    public Promocion(int Codigo){
         this.Codigo = Codigo;
     }
-
+    
     //Insertar
-    public Tratamiento(String Nombre, Float Precio){
+    public Promocion(int Codigo, String Nombre, Float Precio, Boolean Vigencia){
         this.Nombre = Nombre;
         this.Precio = Precio;
+        this.Vigencia = Vigencia;
+        this.Codigo = Codigo;
     }
 
     //Modificar
-    public Tratamiento(int Codigo, String Nombre, Float Precio){
-        this.Codigo = Codigo;
+    public Promocion(String Nombre, Float Precio, Boolean Vigencia){
         this.Nombre = Nombre;
         this.Precio = Precio;
+        this.Vigencia = Vigencia;
     }
 
     public int getCodigo() {
@@ -36,12 +40,12 @@ public class Tratamiento implements Serializable{
         this.Codigo = Codigo;
     }
 
-    public String getNombre() {
+    public String getNombre(){
         return Nombre;
     }
 
-    public void setNombre(int Nombre) {
-        this.Nombre = String.valueOf(Nombre);
+    public void setNombre(String Nombre){
+        this.Nombre = Nombre;
     }
 
     public Float getPrecio() {
@@ -50,5 +54,13 @@ public class Tratamiento implements Serializable{
 
     public void setPrecio(Float Precio) {
         this.Precio = Precio;
+    }
+
+    public Boolean getVigencia() {
+        return Vigencia;
+    }
+
+    public void setVigencia(Boolean Vigencia) {
+        this.Vigencia = Vigencia;
     }
 }

@@ -3,21 +3,21 @@ package datos;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.Manicurista;
+import modelo.Promocion;
 
-public class ManicuristaDAO{
-    public static final String selectSQL = "SELECT * FROM Manicurista";
-    public static final String insertSQL = "INSERT INTO Manicurista(Nombre, Telefono) VALUES (?,?)";
-    public static final  String updateSQL = "UPDATE Cliente SET Nombre = ?, Telefono = ? WHERE Codigo = ? ";
-    public static final String deleteSQL = "DELETE FROM Manicurista WHERE Codigo = ? ";
-    
-    public List<Manicurista> listar(){
+public class PromocionDAO{
+    public static final String selectSQL = "SELECT * FROM Promocio";
+    public static final String insertSQL = "INSERT INTO Promocion(Nombre, Precio, Vigencia) VALUES (?,?,?)";
+    public static final  String updateSQL = "UPDATE Promocion SET Nombre = ?, Precio = ?, Vigencia = ? WHERE Codigo = ? ";
+    public static final String deleteSQL = "DELETE FROM Tratamiento WHERE Codigo = ? ";
+
+    public List<Promocion> listar(){
         Connection conn = null;
         Statement state = null;
         ResultSet result = null;
-        Manicurista Mani = null;
+        Promocion Prom = null;
 
-        List<Manicurista> Manicuristas = new ArrayList<>();
+        List<Promocion> Promociones = new ArrayList<>();
         try{
             conn = Conexion.getConnection();
             state = conn.createStatement();
@@ -26,29 +26,32 @@ public class ManicuristaDAO{
             while(result.next()){
                 int Codigo = result.getInt("Codigo");
                 String Nombre = result.getString("Nombre");
-                String Telefono = result.getString("Telefono");
-                Mani = new Manicurista(Codigo, Nombre, Telefono);
-                Manicuristas.add(Mani);
+                Float Precio = result.getFloat("Precio");
+                Boolean Vigencia = result.getBoolean("Vigencia");
+                
+                Prom = new Promocion(Codigo, Nombre, Precio, Vigencia);
+                Promociones.add(Prom);
             }
 
             Conexion.close(result);
             Conexion.close((ResultSet) state);
             Conexion.close(conn);
 
-            for(Manicurista manicurista: Manicuristas){
-                System.out.println("Código: " + manicurista.getCodigo());
-                System.out.println("Nombre: " + manicurista.getNombre());
-                System.out.println("Telefono: " + manicurista.getTelefono());
+            for(Promocion promociones: Promociones){
+                System.out.println("Código: " + promociones.getCodigo());
+                System.out.println("Nombre: " + promociones.getNombre());
+                System.out.println("Precio: " + promociones.getPrecio());
+                System.out.println("Vigencia: " + promociones.getVigencia());
                 System.out.println(" \n ");
             }
 
         }catch (Exception e) {
             e.printStackTrace(System.out);
         } 
-        return Manicuristas;
+        return Promociones;
     }
 
-    public int insertar(Manicurista manicuristas){
+    public int insertar(Promocion Promociones){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -58,8 +61,9 @@ public class ManicuristaDAO{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(insertSQL);
 
-            state.setString(1,manicuristas.getNombre());
-            state.setString(2,manicuristas.getTelefono());
+            state.setString(1,Promociones.getNombre());
+            state.setFloat(2,Promociones.getPrecio());
+            state.setBoolean(3, Promociones.getVigencia());
 
             registros = state.executeUpdate();
 
@@ -69,16 +73,15 @@ public class ManicuristaDAO{
             Conexion.close(state);
             Conexion.close(conn);
 
-            Manicurista manicuristasNvo = new Manicurista();
+            Promocion PromocionNvo = new Promocion();
 
         }catch (Exception e) {
             e.printStackTrace();
         }
-
         return registros;
     }
 
-    public int modificar(Manicurista manicuristas){
+    public int modificar(Promocion Promociones){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -89,9 +92,10 @@ public class ManicuristaDAO{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(updateSQL);
 
-            state.setString(1,manicuristas.getNombre());
-            state.setString(2,manicuristas.getTelefono());
-            state.setInt(3,manicuristas.getCodigo());
+            state.setString(1,Promociones.getNombre());
+            state.setFloat(2,Promociones.getPrecio());
+            state.setBoolean(3, Promociones.getVigencia());
+            state.setInt(4,Promociones.getCodigo());
 
             registros = state.executeUpdate();
 
@@ -101,7 +105,7 @@ public class ManicuristaDAO{
 
             Conexion.close(state);
             Conexion.close(conn);
-            Manicurista manicuristasMod = new Manicurista();
+            Promocion TratamientosMod = new Promocion();
 
         }catch (SQLException e) {
             e.printStackTrace();
@@ -109,7 +113,7 @@ public class ManicuristaDAO{
         return registros;
     }
 
-    public int borrar(Manicurista manicuristas){
+    public int borrar(Promocion Promociones){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -119,7 +123,7 @@ public class ManicuristaDAO{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(deleteSQL);
 
-            state.setInt(1,manicuristas.getCodigo());
+            state.setInt(1,Promociones.getCodigo());
 
             registros = state.executeUpdate();
 
@@ -129,12 +133,11 @@ public class ManicuristaDAO{
 
             Conexion.close(state);
             Conexion.close(conn);
-            Manicurista manicuristasBor = new Manicurista();
+            Promocion tratamientosBor = new Promocion();
 
         }catch (Exception e) {
             e.printStackTrace();
         }
-
         return registros;
     }
 }

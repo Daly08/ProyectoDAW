@@ -26,10 +26,9 @@ public class TratamientoDAO{
             while(result.next()){
                 int Codigo = result.getInt("Codigo");
                 String Nombre = result.getString("Nombre");
-                int Precio = result.getInt("Precio");
-                int Cod_Manicurista = result.getInt("Cod_Manicurista");
+                Float Precio = result.getFloat("Precio");
                 
-                Trat = new Tratamiento(Codigo, Nombre, Precio, Cod_Manicurista);
+                Trat = new Tratamiento(Codigo, Nombre, Precio);
                 Tratamientos.add(Trat);
             }
 
@@ -41,7 +40,6 @@ public class TratamientoDAO{
                 System.out.println("Código: " + tratamientos.getCodigo());
                 System.out.println("Nombre: " + tratamientos.getNombre());
                 System.out.println("Precio: " + tratamientos.getPrecio());
-                System.out.println("Cod_Manicurista: " + tratamientos.getCod_Manicurista());
                 System.out.println(" \n ");
             }
 
@@ -62,8 +60,7 @@ public class TratamientoDAO{
             state = conn.prepareStatement(insertSQL);
 
             state.setString(1,tratamientos.getNombre());
-            state.setInt(2,tratamientos.getPrecio());
-            state.setInt(3,tratamientos.getCod_Manicurista());
+            state.setFloat(2,tratamientos.getPrecio());
 
             registros = state.executeUpdate();
 
@@ -93,8 +90,7 @@ public class TratamientoDAO{
             state = conn.prepareStatement(updateSQL);
 
             state.setString(1,tratamientos.getNombre());
-            state.setInt(2,tratamientos.getPrecio());
-            state.setInt(3,tratamientos.getCod_Manicurista());
+            state.setFloat(2,tratamientos.getPrecio());
             state.setInt(4,tratamientos.getCodigo());
 
             registros = state.executeUpdate();

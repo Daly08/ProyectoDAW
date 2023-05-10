@@ -36,7 +36,7 @@ public class Cliente implements Serializable{
         this.Codigo = Codigo;
     }
 
-    public static String getNombre() {
+    public String getNombre() {
         return Nombre;
     }
 

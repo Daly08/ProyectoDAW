@@ -26,7 +26,7 @@ public class CitaDAO{
             while(result.next()){
                 int Codigo = result.getInt("Codigo");
                 Date Fecha = result.getDate("Fecha");
-                String Horario = result.getString("Horario");
+                Time Horario = result.getTime("Horario");
                 int Cod_Cliente = result.getInt("Cod_Cliente");
                 int Cod_Tratamiento = result.getInt("Cod_Tratamiento");
                 Cit = new Cita(Codigo, Fecha, Horario, Cod_Cliente, Cod_Tratamiento);
@@ -63,7 +63,7 @@ public class CitaDAO{
             state = conn.prepareStatement(insertSQL);
             
             state.setDate(1,(Date)citas.getFecha());
-            state.setString(2,citas.getHorario());
+            state.setTime(2,citas.getHorario());
             state.setInt(3,citas.getCod_Cliente());
             state.setInt(4,citas.getCod_Tratamiento());
 
@@ -96,7 +96,7 @@ public class CitaDAO{
             state = conn.prepareStatement(updateSQL);
 
             state.setDate(1,(Date)citas.getFecha());
-            state.setString(2,citas.getHorario());
+            state.setTime(2,citas.getHorario());
             state.setInt(3,citas.getCod_Cliente());
             state.setInt(4,citas.getCod_Tratamiento());
             state.setInt(5,citas.getCodigo());
