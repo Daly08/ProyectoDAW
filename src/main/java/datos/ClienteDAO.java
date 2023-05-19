@@ -11,7 +11,7 @@ public class ClienteDAO{
     public static final  String updateSQL = "UPDATE Cliente SET Nombre = ?, Telefono = ? WHERE Codigo = ? ";
     public static final String deleteSQL = "DELETE FROM Cliente WHERE Codigo = ? ";
 
-    public List<Cliente> listar(){
+    public List<Cliente> seleccionar(){
         Connection conn = null;
         Statement state = null;
         ResultSet result = null;

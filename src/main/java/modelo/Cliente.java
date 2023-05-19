@@ -40,7 +40,7 @@ public class Cliente implements Serializable{
         return Nombre;
     }
 
-    public void setNombre(int Nombre) {
+    public void setNombre(String Nombre) {
         this.Nombre = String.valueOf(Nombre);
     }
 
