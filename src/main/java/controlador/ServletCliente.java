@@ -3,11 +3,19 @@ package controlador;
 import datos.Conexion;
 import datos.CitaDAO;
 import datos.ClienteDAO;
+import modelo.Cita;
 import modelo.Cliente;
+import modelo.Promocion;
 
 import javax.servlet.annotation.WebServlet;
+import javax.annotation.Resource;
 import javax.servlet.http.*;
+import javax.sql.DataSource;
+import javax.servlet.annotation.*;
 import javax.servlet.*;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Connection;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
@@ -19,6 +27,7 @@ public class ServletCliente extends HttpServlet{
 
     private String Nombre;
     private String Telefono;
+
 
     @Override
     protected void doGet(HttpServletRequest rq, HttpServletResponse rp) throws IOException, ServletException{
@@ -55,14 +64,17 @@ public class ServletCliente extends HttpServlet{
                 e.printStackTrace();
             }
         } else if(op.equals("modificar")){
+            Codigo = (int) rq.getSession().getAttribute("Codigo")
+            Nombre = rq.getParameter("Nombre");
+            Telefono = rq.getParameter("Telefono");
             try{
                 Connection connection = Conexion.getConnection();
+                ClienteDAO clienteDAO= new ClienteDAO();
                 Cliente cliente = new Cliente();
-                ClienteDAO clientdao = new ClienteDAO();
                 rq.getSession().setAttribute("datos", cliente);
                 if(Nombre != null  && Telefono != null){
-                    clienteDAO.modificar(Codigo,Nombre);
-                    clienteDAO.modificar(Codigo, Telefono);
+                    clienteDAO.modificarNom(Codigo,Nombre);
+                    clienteDAO.modificarTel(Codigo,Telefono);
                 }
                 connection.close();
             }catch(SQLException e){
@@ -85,7 +97,6 @@ public class ServletCliente extends HttpServlet{
                 }
                 rq.getSession().setAttribute("Codigo", null);
                 rq.getSession().setAttribute("datos", cliente);
-                rq.getSession().getAttribute("datosCita", cita);
 
                 connection.close();
             }catch(SQLException e){
@@ -95,7 +106,7 @@ public class ServletCliente extends HttpServlet{
             try{
                 Connection connection = Conexion.getConnection();
                 ClienteDAO clienteDAO = new ClienteDAO();
-                ClienteDAO.borrar(Codigo);
+                clienteDAO.borrar(Codigo);
                 connection.close();
             }catch(SQLException e){
                 e.printStackTrace();
