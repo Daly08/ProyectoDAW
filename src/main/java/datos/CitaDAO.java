@@ -52,7 +52,7 @@ public class CitaDAO{
         return Citas;
     }
 
-    public int insertar(Cita citas){
+    public void insertar(Cita citas){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -75,16 +75,12 @@ public class CitaDAO{
             Conexion.close(state);
             Conexion.close(conn);
 
-            Cita citasNvo = new Cita();
-
         }catch (Exception e) {
             e.printStackTrace();
         }
-
-        return registros;
     }
 
-    public int modificar(Cita citas){
+    public void modificar(Cita citas){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -109,15 +105,13 @@ public class CitaDAO{
 
             Conexion.close(state);
             Conexion.close(conn);
-            Cita citasMod = new Cita();
 
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return registros;
     }
 
-    public int borrar(Cita citas){
+    public void borrar(Cita citas){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -137,12 +131,9 @@ public class CitaDAO{
 
             Conexion.close(state);
             Conexion.close(conn);
-            Cita citasBor = new Cita();
 
         }catch (Exception e) {
             e.printStackTrace();
         }
-
-        return registros;
     }
 }

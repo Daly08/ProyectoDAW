@@ -3,6 +3,7 @@ package datos;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 import modelo.Cliente;
 
 public class ClienteDAO{
@@ -11,6 +12,12 @@ public class ClienteDAO{
     public static final  String updateSQL = "UPDATE Cliente SET Nombre = ?, Telefono = ? WHERE Codigo = ? ";
     public static final String deleteSQL = "DELETE FROM Cliente WHERE Codigo = ? ";
 
+    private Connection connection;
+    public ClienteDAO(){
+        this.connection = connection;
+    }
+    
+    //Muestra los clientes
     public List<Cliente> seleccionar(){
         Connection conn = null;
         Statement state = null;
@@ -49,7 +56,7 @@ public class ClienteDAO{
         return Clientes;
     }
 
-    public int insertar(Cliente clientes){
+    public void insertar(Cliente clientes){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -70,15 +77,12 @@ public class ClienteDAO{
             Conexion.close(state);
             Conexion.close(conn);
 
-            Cliente clientesNvo = new Cliente();
-
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return registros;
     }
 
-    public int modificar(Cliente clientes){
+    public void modificar(int Codigo, String Nombre, String Telefono) throws SQLException{
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -89,9 +93,9 @@ public class ClienteDAO{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(updateSQL);
 
-            state.setString(1,clientes.getNombre());
-            state.setString(2,clientes.getTelefono());
-            state.setInt(3,clientes.getCodigo());
+            state.setString(1, Nombre);
+            state.setString(2, Telefono);
+            state.setInt(3, Codigo);
 
             registros = state.executeUpdate();
 
@@ -101,15 +105,13 @@ public class ClienteDAO{
 
             Conexion.close(state);
             Conexion.close(conn);
-            Cliente clientesMod = new Cliente();
 
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        return registros;
     }
 
-    public int borrar(Cliente clientes){
+    public void borrar(Cliente clientes){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -129,12 +131,9 @@ public class ClienteDAO{
 
             Conexion.close(state);
             Conexion.close(conn);
-            Cliente clientesBor = new Cliente();
 
         }catch (Exception e) {
             e.printStackTrace();
         }
-
-        return registros;
     }
 }

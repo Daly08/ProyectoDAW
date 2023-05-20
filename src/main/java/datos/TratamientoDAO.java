@@ -49,7 +49,7 @@ public class TratamientoDAO{
         return Tratamientos;
     }
 
-    public int insertar(Tratamiento tratamientos){
+    public void insertar(Tratamiento tratamientos){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -70,15 +70,12 @@ public class TratamientoDAO{
             Conexion.close(state);
             Conexion.close(conn);
 
-            Tratamiento tratamientosNvo = new Tratamiento();
-
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return registros;
     }
 
-    public int modificar(Tratamiento tratamientos){
+    public void modificar(Tratamiento tratamientos){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -101,15 +98,13 @@ public class TratamientoDAO{
 
             Conexion.close(state);
             Conexion.close(conn);
-           Tratamiento TratamientosMod = new Tratamiento();
 
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        return registros;
     }
 
-    public int borrar(Tratamiento tratamientos){
+    public void borrar(Tratamiento tratamientos){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -129,11 +124,9 @@ public class TratamientoDAO{
 
             Conexion.close(state);
             Conexion.close(conn);
-            Tratamiento tratamientosBor = new Tratamiento();
 
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return registros;
     }
 }

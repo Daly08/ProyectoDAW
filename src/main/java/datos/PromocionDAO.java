@@ -51,7 +51,7 @@ public class PromocionDAO{
         return Promociones;
     }
 
-    public int insertar(Promocion Promociones){
+    public void insertar(Promocion Promociones){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -73,15 +73,12 @@ public class PromocionDAO{
             Conexion.close(state);
             Conexion.close(conn);
 
-            Promocion PromocionNvo = new Promocion();
-
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return registros;
     }
 
-    public int modificar(Promocion Promociones){
+    public void modificar(Promocion Promociones){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -105,15 +102,13 @@ public class PromocionDAO{
 
             Conexion.close(state);
             Conexion.close(conn);
-            Promocion TratamientosMod = new Promocion();
 
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        return registros;
     }
 
-    public int borrar(Promocion Promociones){
+    public void borrar(Promocion Promociones){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -133,11 +128,9 @@ public class PromocionDAO{
 
             Conexion.close(state);
             Conexion.close(conn);
-            Promocion tratamientosBor = new Promocion();
 
         }catch (Exception e) {
             e.printStackTrace();
         }
-        return registros;
     }
 }

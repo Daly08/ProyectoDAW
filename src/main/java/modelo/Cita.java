@@ -82,5 +82,10 @@ public class Cita implements Serializable{
     }
 
     public void setCod_Promocion(int Cod_Promocion) {
+        this.Cod_Promocion = Cod_Promocion;
+    }
+
+    public int setCod_Promocion(){
+        return Cod_Promocion;
     }
 }
