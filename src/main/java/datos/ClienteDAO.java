@@ -11,11 +11,6 @@ public class ClienteDAO{
     public static final String insertSQL = "INSERT INTO Cliente(Nombre, Telefono) VALUES (?,?)";
     public static final  String updateSQL = "UPDATE Cliente SET Nombre = ?, Telefono = ? WHERE Codigo = ? ";
     public static final String deleteSQL = "DELETE FROM Cliente WHERE Codigo = ? ";
-
-    private Connection connection;
-    public ClienteDAO(){
-        this.connection = connection;
-    }
     
     //Muestra los clientes
     public List<Cliente> seleccionar(){
@@ -82,7 +77,7 @@ public class ClienteDAO{
         }
     }
 
-    public void modificar(int Codigo, String Nombre, String Telefono) throws SQLException{
+    public void modificarNom(int Codigo, String Nombre) throws SQLException{
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -94,7 +89,6 @@ public class ClienteDAO{
             state = conn.prepareStatement(updateSQL);
 
             state.setString(1, Nombre);
-            state.setString(2, Telefono);
             state.setInt(3, Codigo);
 
             registros = state.executeUpdate();
@@ -111,7 +105,35 @@ public class ClienteDAO{
         }
     }
 
-    public void borrar(Cliente clientes){
+    public void modificarTel(int Codigo, String Telefono) throws SQLException{
+
+        Connection conn = null;
+        PreparedStatement state = null;
+        int registros=0;
+
+
+        try{
+            conn = Conexion.getConnection();
+            state = conn.prepareStatement(updateSQL);
+
+            state.setString(1, Telefono);
+            state.setInt(2, Codigo);
+
+            registros = state.executeUpdate();
+
+            if(registros>0)
+                System.out.println("Registro actualizado");
+
+
+            Conexion.close(state);
+            Conexion.close(conn);
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void borrar(int Codigo) throws SQLDataException{
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -121,7 +143,7 @@ public class ClienteDAO{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(deleteSQL);
 
-            state.setInt(1,clientes.getCodigo());
+            state.setInt(1,Codigo);
 
             registros = state.executeUpdate();
 
@@ -130,7 +152,6 @@ public class ClienteDAO{
 
 
             Conexion.close(state);
-            Conexion.close(conn);
 
         }catch (Exception e) {
             e.printStackTrace();
