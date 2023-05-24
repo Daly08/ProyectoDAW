@@ -5,7 +5,7 @@ import datos.ClienteDAO;
 import modelo.Cliente;
 
 import javax.servlet.annotation.WebServlet;
-//import javax.annotation.Resource;
+import javax.annotation.Resource;
 import javax.servlet.http.*;
 //import javax.sql.DataSource;
 //import javax.servlet.annotation.*;
@@ -19,6 +19,7 @@ import java.util.*;
 
 @WebServlet(name = "ServletCliente", urlPatterns = {"/ServletCliente"})
 public class ServletCliente extends HttpServlet{
+    @Resource(name = "jdbc/database")
     private int Codigo;
 
     private Cliente cliente;
@@ -35,7 +36,7 @@ public class ServletCliente extends HttpServlet{
                 Connection connection = Conexion.getConnection();
                 ClienteDAO CliDao = new ClienteDAO();
                 List<Cliente> lista = CliDao.seleccionar();
-                rq.setAttribute("lista", lista);
+                rq.getSession().setAttribute("lista", lista);
                 connection.close();
             } catch(SQLException e){
                 e.printStackTrace();

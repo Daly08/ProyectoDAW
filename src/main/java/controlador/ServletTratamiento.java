@@ -24,8 +24,12 @@ public class ServletTratamiento {
         op=(String)rq.getSession().getAttribute("op");
         if(op.equals("lista")){
             try{
-
+                Connection connection = Conexion.getConnection();
+                TratamientoDAO tratamientoDAO = new TratamientoDAO();
+                rq.getSession().setAttribute("datos", tratamientoDAO);
+                connection.close();
             }catch(SQLException e){
+                rq.getSession().setAttribute("datos", new LinkedList<Tratamiento>());
                 e.printStackTrace();
             }
         }
