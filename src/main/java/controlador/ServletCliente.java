@@ -1,11 +1,8 @@
 package controlador;
 
 import datos.Conexion;
-//import datos.CitaDAO;
 import datos.ClienteDAO;
-//import modelo.Cita;
 import modelo.Cliente;
-//import modelo.Promocion;
 
 import javax.servlet.annotation.WebServlet;
 //import javax.annotation.Resource;
@@ -31,7 +28,7 @@ public class ServletCliente extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest rq, HttpServletResponse rp) throws IOException, ServletException{
-        String op = (rq.getParameter("opc") != null) ? rq.getParameter("opc") : "list";
+        String op = (rq.getParameter("op") != null) ? rq.getParameter("opS") : "list";
 
         if(op.equals("lista")){
             try{
@@ -46,7 +43,7 @@ public class ServletCliente extends HttpServlet{
         }
         rp.sendRedirect("/ProyectoDAW/ServletCliente.jsp");
     }
-    //@Override
+    @Override
     protected void doPost(HttpServletRequest rq, HttpServletResponse rp) throws IOException{
         String op;
         Codigo = (int) rq.getSession().getAttribute("Codigo");
