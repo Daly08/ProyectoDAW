@@ -11,7 +11,7 @@ public class CitaDAO{
     public static final  String updateSQL = "UPDATE Cita_Disp SET Fecha = ?, Horario = ?, Cod_Cliente = ?, Cod_Tratamiento = ? WHERE Codigo = ? ";
     public static final String deleteSQL = "DELETE FROM Cita WHERE Codigo = ? ";
 
-    public List<Cita> listar(){
+    public List<Cita> listar() throws SQLException{
         Connection conn = null;
         Statement state = null;
         ResultSet result = null;
@@ -25,11 +25,12 @@ public class CitaDAO{
 
             while(result.next()){
                 int Codigo = result.getInt("Codigo");
-                Date Fecha = result.getDate("Fecha");
-                Time Horario = result.getTime("Horario");
-                int Cod_Cliente = result.getInt("Cod_Cliente");
-                int Cod_Tratamiento = result.getInt("Cod_Tratamiento");
-                Cit = new Cita(Codigo, Fecha, Horario, Cod_Cliente, Cod_Tratamiento);
+                String Fecha = result.getString("Fecha");
+                String Horario = result.getString("Horario");
+                String Cod_Cliente = result.getString("Cod_Cliente");
+                String Cod_Tratamiento = result.getString("Cod_Tratamiento");
+                String Cod_Promocion = result.getString("Cod_Promocion");
+                Cit = new Cita(Codigo, Fecha, Horario, Cod_Cliente, Cod_Tratamiento, Cod_Promocion);
                 Citas.add(Cit);
             }
 
@@ -43,6 +44,7 @@ public class CitaDAO{
                 System.out.println("Horario: " + citas.getHorario());
                 System.out.println("Cod_Cliente: " + citas.getCod_Cliente());
                 System.out.println("Cod_Tratamiento: " + citas.getCod_Tratamiento());
+                System.out.println("Cod_Promocion: " + citas.getCod_Promocion());
                 System.out.println(" \n ");
             }
 
@@ -52,7 +54,7 @@ public class CitaDAO{
         return Citas;
     }
 
-    public void insertar(Cita citas){
+    public void insertar(Cita cita) throws SQLDataException{
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -62,10 +64,11 @@ public class CitaDAO{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(insertSQL);
             
-            state.setDate(1,(Date)citas.getFecha());
-            state.setTime(2,citas.getHorario());
-            state.setInt(3,citas.getCod_Cliente());
-            state.setInt(4,citas.getCod_Tratamiento());
+            state.setString(1, cita.getFecha());
+            state.setString(2,cita.getHorario());
+            state.setString(3,cita.getCod_Cliente());
+            state.setString(4,cita.getCod_Tratamiento());
+            state.setString(5,cita.getCod_Promocion());
 
             registros = state.executeUpdate();
 
@@ -80,7 +83,7 @@ public class CitaDAO{
         }
     }
 
-    public void modificar(Cita citas){
+    public void modificarFecha(int Codigo, String Fecha) throws SQLDataException{
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -91,11 +94,8 @@ public class CitaDAO{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(updateSQL);
 
-            state.setDate(1,(Date)citas.getFecha());
-            state.setTime(2,citas.getHorario());
-            state.setInt(3,citas.getCod_Cliente());
-            state.setInt(4,citas.getCod_Tratamiento());
-            state.setInt(5,citas.getCodigo());
+            state.setString(1,Fecha);
+            state.setInt(2,Codigo);
 
             registros = state.executeUpdate();
 
@@ -111,7 +111,119 @@ public class CitaDAO{
         }
     }
 
-    public void borrar(Cita citas){
+    public void modificarHorario(int Codigo, String Horario) throws SQLDataException{
+
+        Connection conn = null;
+        PreparedStatement state = null;
+        int registros=0;
+
+
+        try{
+            conn = Conexion.getConnection();
+            state = conn.prepareStatement(updateSQL);
+
+            state.setString(1,Horario);
+            state.setInt(2,Codigo);
+
+            registros = state.executeUpdate();
+
+            if(registros>0)
+                System.out.println("Cita actualizada");
+
+
+            Conexion.close(state);
+            Conexion.close(conn);
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void modificarCod_Cliente(int Codigo, String Cod_Cliente) throws SQLDataException{
+
+        Connection conn = null;
+        PreparedStatement state = null;
+        int registros=0;
+
+
+        try{
+            conn = Conexion.getConnection();
+            state = conn.prepareStatement(updateSQL);
+
+            state.setString(1,Cod_Cliente);
+            state.setInt(2,Codigo);
+
+            registros = state.executeUpdate();
+
+            if(registros>0)
+                System.out.println("Cita actualizada");
+
+
+            Conexion.close(state);
+            Conexion.close(conn);
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void modificarCod_Tratamiento(int Codigo, String Cod_Tratamiento) throws SQLDataException{
+
+        Connection conn = null;
+        PreparedStatement state = null;
+        int registros=0;
+
+
+        try{
+            conn = Conexion.getConnection();
+            state = conn.prepareStatement(updateSQL);
+
+            state.setString(1,Cod_Tratamiento);
+            state.setInt(2,Codigo);
+
+            registros = state.executeUpdate();
+
+            if(registros>0)
+                System.out.println("Cita actualizada");
+
+
+            Conexion.close(state);
+            Conexion.close(conn);
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void modificarCod_Promocion(int Codigo, String Cod_Promocion) throws SQLDataException{
+
+        Connection conn = null;
+        PreparedStatement state = null;
+        int registros=0;
+
+
+        try{
+            conn = Conexion.getConnection();
+            state = conn.prepareStatement(updateSQL);
+
+            state.setString(1,Cod_Promocion);
+            state.setInt(2,Codigo);
+
+            registros = state.executeUpdate();
+
+            if(registros>0)
+                System.out.println("Cita actualizada");
+
+
+            Conexion.close(state);
+            Conexion.close(conn);
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void borrar(int Codigo) throws SQLDataException{
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -121,7 +233,7 @@ public class CitaDAO{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(deleteSQL);
 
-            state.setInt(1,citas.getCodigo());
+            state.setInt(1,Codigo);
 
             registros = state.executeUpdate();
 

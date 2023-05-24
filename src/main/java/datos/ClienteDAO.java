@@ -13,7 +13,7 @@ public class ClienteDAO{
     public static final String deleteSQL = "DELETE FROM Cliente WHERE Codigo = ? ";
     
     //Muestra los clientes
-    public List<Cliente> seleccionar(){
+    public List<Cliente> seleccionar() throws SQLException{
         Connection conn = null;
         Statement state = null;
         ResultSet result = null;
@@ -51,7 +51,7 @@ public class ClienteDAO{
         return Clientes;
     }
 
-    public void insertar(Cliente clientes){
+    public void insertar(Cliente clientes) throws SQLDataException{
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -77,7 +77,7 @@ public class ClienteDAO{
         }
     }
 
-    public void modificarNom(int Codigo, String Nombre) throws SQLException{
+    public void modificarNom(int Codigo, String Nombre) throws SQLDataException{
 
         Connection conn = null;
         PreparedStatement state = null;
