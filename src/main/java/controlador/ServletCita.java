@@ -1,7 +1,7 @@
 package controlador;
 
 import datos.CitaDAO;
-import datos.Conexion;
+//import datos.Conexion;
 import datos.PromocionDAO;
 import modelo.Cita;
 import modelo.Promocion;
@@ -44,7 +44,7 @@ public class ServletCita extends HttpServlet {
 
         if (op.equals("lista")) {
             try {
-                Connection connection = Conexion.getConnection();
+                Connection connection = conexion.getConnection();
                 CitaDAO citaDAO = new CitaDAO();
                 rq.getSession().setAttribute("datos", citaDAO);
                 connection.close();

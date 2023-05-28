@@ -49,7 +49,7 @@ public class TratamientoDAO{
         return Tratamientos;
     }
 
-    public void insertar(Tratamiento tratamientos){
+    public void insertar(Tratamiento tratamiento){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -59,8 +59,8 @@ public class TratamientoDAO{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(insertSQL);
 
-            state.setString(1,tratamientos.getNombre());
-            state.setFloat(2,tratamientos.getPrecio());
+            state.setString(1,tratamiento.getNombre());
+            state.setFloat(2,tratamiento.getPrecio());
 
             registros = state.executeUpdate();
 
@@ -75,7 +75,7 @@ public class TratamientoDAO{
         }
     }
 
-    public void modificar(Tratamiento tratamientos){
+    public void modificarNombre(int Codigo, String Nombre){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -86,9 +86,36 @@ public class TratamientoDAO{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(updateSQL);
 
-            state.setString(1,tratamientos.getNombre());
-            state.setFloat(2,tratamientos.getPrecio());
-            state.setInt(4,tratamientos.getCodigo());
+            state.setString(1,Nombre);
+            state.setFloat(2,Codigo);
+
+            registros = state.executeUpdate();
+
+            if(registros>0)
+                System.out.println("Registro actualizado");
+
+
+            Conexion.close(state);
+            Conexion.close(conn);
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void modificarPrecio(int Codigo, Float Precio){
+
+        Connection conn = null;
+        PreparedStatement state = null;
+        int registros=0;
+
+
+        try{
+            conn = Conexion.getConnection();
+            state = conn.prepareStatement(updateSQL);
+
+            state.setFloat(1,Precio);
+            state.setInt(2,Codigo);
 
             registros = state.executeUpdate();
 
