@@ -78,7 +78,7 @@ public class PromocionDAO{
         }
     }
 
-    public void modificar(Promocion Promociones){
+    public void modificarNombre(int Codigo, String Nombre){
 
         Connection conn = null;
         PreparedStatement state = null;
@@ -89,10 +89,64 @@ public class PromocionDAO{
             conn = Conexion.getConnection();
             state = conn.prepareStatement(updateSQL);
 
-            state.setString(1,Promociones.getNombre());
-            state.setFloat(2,Promociones.getPrecio());
-            state.setBoolean(3, Promociones.getVigencia());
-            state.setInt(4,Promociones.getCodigo());
+            state.setString(1,Nombre);
+            state.setInt(2,Codigo);
+
+            registros = state.executeUpdate();
+
+            if(registros>0)
+                System.out.println("Registro actualizado");
+
+
+            Conexion.close(state);
+            Conexion.close(conn);
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void modificarPrecio(int Codigo, Float Precio){
+
+        Connection conn = null;
+        PreparedStatement state = null;
+        int registros=0;
+
+
+        try{
+            conn = Conexion.getConnection();
+            state = conn.prepareStatement(updateSQL);
+
+            state.setFloat(1,Precio);
+            state.setInt(2,Codigo);
+
+            registros = state.executeUpdate();
+
+            if(registros>0)
+                System.out.println("Registro actualizado");
+
+
+            Conexion.close(state);
+            Conexion.close(conn);
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void modificarVig(int Codigo, Boolean Vigencia){
+
+        Connection conn = null;
+        PreparedStatement state = null;
+        int registros=0;
+
+
+        try{
+            conn = Conexion.getConnection();
+            state = conn.prepareStatement(updateSQL);
+
+            state.setBoolean(1,Vigencia);
+            state.setInt(2,Codigo);
 
             registros = state.executeUpdate();
 
