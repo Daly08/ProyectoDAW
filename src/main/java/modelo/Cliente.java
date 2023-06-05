@@ -41,7 +41,7 @@ public class Cliente implements Serializable{
     }
 
     public void setNombre(String Nombre) {
-        this.Nombre = String.valueOf(Nombre);
+        this.Nombre = Nombre;
     }
 
     public String getTelefono() {
